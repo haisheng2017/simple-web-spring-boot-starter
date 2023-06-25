@@ -2,6 +2,7 @@ package hao.simple.web.spring.boot.starter;
 
 import hao.simple.web.spring.boot.starter.mapper.UserMapper;
 import hao.simple.web.spring.boot.starter.model.User;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
+@Slf4j
 @SpringBootTest
 class ApplicationTests {
     @Autowired
@@ -26,6 +28,7 @@ class ApplicationTests {
         List<User> userList = userMapper.selectList(null);
         Assertions.assertEquals(5, userList.size());
         userList.forEach(System.out::println);
+        log.debug("Finished.");
     }
 
 }

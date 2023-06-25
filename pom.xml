@@ -11,6 +11,7 @@
     <modules>
         <module>test-starter</module>
         <module>web-starter</module>
+        <module>simple-web</module>
     </modules>
     <properties>
         <java.version>17</java.version>
@@ -50,6 +51,16 @@
                 <groupId>hao</groupId>
                 <artifactId>web-starter</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>hao</groupId>
+                <artifactId>simple-web</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.janino</groupId>
+                <artifactId>janino</artifactId>
+                <version>3.1.9</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+
+    <if condition='isDefined("spring.config.additional-location")'>
+        <then>
+            <property file="${spring.config.additional-location}"/>
+        </then>
+        <else>
+            <if condition='isDefined("spring.config.location")'>
+                <then>
+                    <property file="${spring.config.location}"/>
+                </then>
+                <else>
+                    <property resource="application.properties"/>
+                </else>
+            </if>
+        </else>
+    </if>
+
+    <property name="simple.logging.log-pattern"
+              value="${logging.log-pattern:-%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } [%t] --- %-40.40logger{39} : [%X{x-trace-id}] %m%n}"/>
+    <property name="simple.logging.max-log-file-size" value="${simple.logging.max-log-file-size:-50MB}"/>
+    <property name="simple.logging.debug-log-max-history-in-days"
+              value="${simple.logging.debug-log-max-history-in-days:-7}"/>
+
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${simple.logging.log-pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <if condition='isDefined("simple.logging.info-log-file-path")'>
+        <then>
+            <appender name="INFO_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                    <level>INFO</level>
+                </filter>
+                <encoder>
+                    <charset>UTF-8</charset>
+                    <pattern>${simple.logging.log-pattern}</pattern>
+                </encoder>
+                <file>${simple.logging.info-log-file-path}</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <fileNamePattern>${simple.logging.info-log-file-path}.%d{yyyyMMddHH}</fileNamePattern>
+                    <maxHistory>${simple.logging.info-log-max-history-in-hours}</maxHistory>
+                </rollingPolicy>
+            </appender>
+        </then>
+    </if>
+
+    <if condition='isDefined("simple.logging.error-log-file-path")'>
+        <then>
+            <appender name="ERROR_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                    <level>ERROR</level>
+                </filter>
+                <encoder>
+                    <charset>UTF-8</charset>
+                    <pattern>${simple.logging.log-pattern}</pattern>
+                </encoder>
+                <file>${simple.logging.error-log-file-path}</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <fileNamePattern>${simple.logging.error-log-file-path}-%d{yyyy-MM-dd}/%d{yyyy-MM-dd}.%i.error.log
+                    </fileNamePattern>
+                    <maxHistory>${simple.logging.error-log-max-history-in-days}</maxHistory>
+                    <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                        <maxFileSize>${simple.logging.max-log-file-size}</maxFileSize>
+                    </timeBasedFileNamingAndTriggeringPolicy>
+                </rollingPolicy>
+            </appender>
+        </then>
+    </if>
+
+    <if condition='isDefined("simple.logging.warn-log-file-path")'>
+        <then>
+            <appender name="WARN_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                    <level>WARN</level>
+                </filter>
+                <encoder>
+                    <charset>UTF-8</charset>
+                    <pattern>${simple.logging.log-pattern}</pattern>
+                </encoder>
+                <file>${simple.logging.warn-log-file-path}</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <fileNamePattern>${simple.logging.warn-log-file-path}-%d{yyyy-MM-dd}/%d{yyyy-MM-dd}.%i.warn.log
+                    </fileNamePattern>
+                    <maxHistory>${simple.logging.warn-log-max-history-in-days}</maxHistory>
+                    <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                        <maxFileSize>${simple.logging.max-log-file-size}</maxFileSize>
+                    </timeBasedFileNamingAndTriggeringPolicy>
+                </rollingPolicy>
+            </appender>
+        </then>
+    </if>
+
+    <if condition='isDefined("simple.logging.debug-log-file-path")'>
+        <then>
+            <appender name="DEBUG_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                    <level>DEBUG</level>
+                </filter>
+                <encoder>
+                    <charset>UTF-8</charset>
+                    <pattern>${simple.logging.log-pattern}</pattern>
+                </encoder>
+                <file>${simple.logging.debug-log-file-path}</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <fileNamePattern>${simple.logging.debug-log-file-path}-%d{yyyy-MM-dd}/%d{yyyy-MM-dd}.%i.debug.log
+                    </fileNamePattern>
+                    <maxHistory>${simple.logging.debug-log-max-history-in-days}</maxHistory>
+                    <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                        <maxFileSize>${simple.logging.max-log-file-size}</maxFileSize>
+                    </timeBasedFileNamingAndTriggeringPolicy>
+                </rollingPolicy>
+            </appender>
+        </then>
+    </if>
+
+    <if condition='!"false".equals(property("simple.logging.console.enabled"))'>
+        <then>
+            <root level="INFO">
+                <appender-ref ref="CONSOLE"/>
+            </root>
+        </then>
+    </if>
+    <if condition='isDefined("simple.logging.debug-log-file-path")'>
+        <then>
+            <root level="INFO">
+                <appender-ref ref="DEBUG_LOG_FILE"/>
+            </root>
+        </then>
+    </if>
+    <if condition='isDefined("simple.logging.info-log-file-path")'>
+        <then>
+            <root level="INFO">
+                <appender-ref ref="INFO_LOG_FILE"/>
+            </root>
+        </then>
+    </if>
+    <if condition='isDefined("simple.logging.error-log-file-path")'>
+        <then>
+            <root level="INFO">
+                <appender-ref ref="ERROR_LOG_FILE"/>
+            </root>
+        </then>
+    </if>
+    <if condition='isDefined("simple.logging.warn-log-file-path")'>
+        <then>
+            <root level="INFO">
+                <appender-ref ref="WARN_LOG_FILE"/>
+            </root>
+        </then>
+    </if>
+</included>
