@@ -24,6 +24,12 @@
     <property name="simple.logging.max-log-file-size" value="${simple.logging.max-log-file-size:-50MB}"/>
     <property name="simple.logging.debug-log-max-history-in-days"
               value="${simple.logging.debug-log-max-history-in-days:-7}"/>
+    <property name="simple.logging.info-log-max-history-in-hours"
+              value="${simple.logging.info-log-max-history-in-hours:-48}"/>
+    <property name="simple.logging.error-log-max-history-in-days"
+              value="${simple.logging.error-log-max-history-in-days:-7}"/>
+    <property name="simple.logging.warn-log-max-history-in-days"
+              value="${simple.logging.warn-log-max-history-in-days:-7}"/>
 
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">

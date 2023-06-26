@@ -29,6 +29,7 @@ class ApplicationTests {
         Assertions.assertEquals(5, userList.size());
         userList.forEach(System.out::println);
         log.debug("Finished.");
+        log.info("Finished.");
     }
 
 }
