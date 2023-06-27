@@ -1,7 +1,7 @@
-package hao.simple.web.spring.boot.starter.mapper;
+package hao.example.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import hao.simple.web.spring.boot.starter.model.User;
+import hao.example.model.User;
 
 public interface UserMapper extends BaseMapper<User> {
 }

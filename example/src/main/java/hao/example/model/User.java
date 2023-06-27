@@ -1,4 +1,4 @@
-package hao.simple.web.spring.boot.starter.model;
+package hao.example.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
