@@ -12,10 +12,12 @@ public class ExceptionResponse {
     private final String code;
     private final int httpStatus;
     private final String traceId;
+    private final String message;
 
     public ExceptionResponse(SimpleException ex) {
         code = ex.getCode();
         httpStatus = ex.getHttpStatus();
         traceId = ex.getTraceId();
+        message = ex.getMessage();
     }
 }
