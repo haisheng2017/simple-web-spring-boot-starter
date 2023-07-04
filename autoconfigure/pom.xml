@@ -7,34 +7,24 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>web-starter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>autoconfigure</artifactId>
     <packaging>jar</packaging>
 
-    <name>web-starter</name>
+    <name>autoconfigure</name>
     <url>http://maven.apache.org</url>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <dependencies>
-        <dependency>
-            <groupId>hao</groupId>
-            <artifactId>simple-logging</artifactId>
-        </dependency>
         <dependency>
             <groupId>hao</groupId>
             <artifactId>simple-exception</artifactId>
         </dependency>
         <dependency>
-            <groupId>hao</groupId>
-            <artifactId>autoconfigure</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 </project>

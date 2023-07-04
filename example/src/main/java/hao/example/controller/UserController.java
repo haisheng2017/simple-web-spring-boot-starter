@@ -2,6 +2,7 @@ package hao.example.controller;
 
 import hao.example.mapper.UserMapper;
 import hao.example.model.User;
+import hao.simple.exception.SimpleThrower;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,5 +19,10 @@ public class UserController {
     @GetMapping
     public List<User> list() {
         return userMapper.selectList(null);
+    }
+
+    @GetMapping("/exception")
+    public void exception() {
+        throw SimpleThrower.badRequest("This api always throw exception.");
     }
 }

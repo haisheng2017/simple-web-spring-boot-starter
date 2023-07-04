@@ -12,6 +12,8 @@
         <module>test-starter</module>
         <module>web-starter</module>
         <module>simple-logging</module>
+        <module>simple-exception</module>
+        <module>autoconfigure</module>
     </modules>
     <properties>
         <java.version>17</java.version>
@@ -55,6 +57,16 @@
             <dependency>
                 <groupId>hao</groupId>
                 <artifactId>simple-logging</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>hao</groupId>
+                <artifactId>simple-exception</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>hao</groupId>
+                <artifactId>autoconfigure</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
