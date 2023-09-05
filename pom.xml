@@ -14,6 +14,7 @@
         <module>simple-logging</module>
         <module>simple-exception</module>
         <module>autoconfigure</module>
+        <module>metric-starter</module>
     </modules>
     <properties>
         <java.version>17</java.version>
@@ -56,6 +57,11 @@
             </dependency>
             <dependency>
                 <groupId>hao</groupId>
+                <artifactId>metric-starter</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>hao</groupId>
                 <artifactId>simple-logging</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
@@ -73,6 +79,11 @@
                 <groupId>org.codehaus.janino</groupId>
                 <artifactId>janino</artifactId>
                 <version>3.1.9</version>
+            </dependency>
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-registry-prometheus</artifactId>
+                <version>1.11.3</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

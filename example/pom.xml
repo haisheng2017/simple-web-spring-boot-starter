@@ -26,6 +26,10 @@
         </dependency>
         <dependency>
             <groupId>hao</groupId>
+            <artifactId>metric-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hao</groupId>
             <artifactId>test-starter</artifactId>
             <scope>test</scope>
         </dependency>
