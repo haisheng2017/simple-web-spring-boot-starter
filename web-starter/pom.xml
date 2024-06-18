@@ -13,6 +13,11 @@
     <name>web-starter</name>
     <url>http://maven.apache.org</url>
 
+    <properties>
+        <!-- remove this property if mybatis-plus update their dependency -->
+        <mybatis.spring.version>3.0.3</mybatis.spring.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>hao</groupId>
@@ -29,6 +34,19 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
+            <exclusions>
+                <!-- remove this exclusion if mybatis-plus update their dependency -->
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis-spring</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>${mybatis.spring.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.mysql</groupId>

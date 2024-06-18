@@ -1,4 +1,4 @@
-package hao.example.conf;
+package hao.conf;
 
 import io.micrometer.core.aop.TimedAspect;
 import org.springframework.context.annotation.Bean;

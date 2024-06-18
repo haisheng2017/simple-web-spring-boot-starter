@@ -1,4 +1,4 @@
-package hao.example;
+package hao;
 
 import hao.example.mapper.UserMapper;
 import hao.example.model.User;

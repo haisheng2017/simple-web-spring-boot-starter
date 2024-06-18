@@ -1,6 +1,7 @@
-package hao.example;
+package hao;
 
 import hao.example.mapper.UserMapper;
+import hao.stream.mapper.StreamMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -8,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @Slf4j
 @SpringBootApplication
-@MapperScan(basePackageClasses = {UserMapper.class})
+@MapperScan(basePackageClasses = {UserMapper.class, StreamMapper.class})
 public class Application {
 
     public static void main(String[] args) {
