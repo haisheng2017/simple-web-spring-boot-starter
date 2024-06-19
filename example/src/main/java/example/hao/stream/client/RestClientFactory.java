@@ -1,7 +1,6 @@
 package example.hao.stream.client;
 
-import hao.simple.exception.CodeEnum;
-import hao.simple.exception.SimpleException;
+import hao.simple.exception.SimpleThrower;
 import hao.simple.logging.TracingUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -27,8 +26,7 @@ public class RestClientFactory {
      */
     public static <T> T create(Class<T> target, String baseUrl) {
         if (!target.isInterface() || !target.isAnnotationPresent(HttpExchange.class)) {
-            throw new SimpleException("Target must be an interface and annotated by @HttpExchange",
-                    CodeEnum.WEB_INTERNAL_ERROR, 500);
+            throw SimpleThrower.internalError("Target must be an interface and annotated by @HttpExchange");
         }
         // TODO check it out a rect client singleton based on url possibility
         RestClient restClient = RestClient.builder()

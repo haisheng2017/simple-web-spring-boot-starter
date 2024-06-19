@@ -80,16 +80,6 @@
                 <artifactId>autoconfigure</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
-            <dependency>
-                <groupId>org.codehaus.janino</groupId>
-                <artifactId>janino</artifactId>
-                <version>3.1.9</version>
-            </dependency>
-            <dependency>
-                <groupId>io.micrometer</groupId>
-                <artifactId>micrometer-registry-prometheus</artifactId>
-                <version>1.11.3</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>

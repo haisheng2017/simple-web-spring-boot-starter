@@ -2,6 +2,8 @@ package example.hao.stream.conf;
 
 import example.hao.stream.client.RestClientFactory;
 import example.hao.stream.client.StreamClient;
+import io.micrometer.core.aop.TimedAspect;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

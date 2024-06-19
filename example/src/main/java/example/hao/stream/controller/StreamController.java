@@ -5,6 +5,7 @@ import example.hao.stream.mapper.StreamMapper;
 import example.hao.stream.model.Stream;
 import example.hao.stream.service.StreamService;
 import io.micrometer.core.annotation.Timed;
+import io.micrometer.core.aop.TimedAspect;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.hibernate.validator.constraints.Range;
@@ -15,13 +16,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/streams")
+@Timed(value = "streams")
 public class StreamController {
     @Autowired
     private StreamMapper streamMapper;
     @Autowired
     private StreamService service;
 
-    @Timed(value = "streams.list")
     @GetMapping
     public List<Stream> list() {
         return streamMapper.selectList(null);
@@ -36,7 +37,6 @@ public class StreamController {
         service.sync(from, to);
     }
 
-    @Timed("streams.deleteAll")
     @DeleteMapping
     public void deleteAll() {
         streamMapper.delete(

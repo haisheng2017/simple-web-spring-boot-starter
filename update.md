@@ -4,7 +4,10 @@
 ## move example package to non-hao start named
 - if an application is defined in hao.xxx liked package, component scan will auto include starter's component. This will make auto-configure not working
 ## support validate
-
+## `TimedAspect` configure remove
+- `You can now use Micrometer’s @Timed, @Counted, @NewSpan, @ContinueSpan and @Observed annotations. The aspects for them are now auto-configured if you have AspectJ on the classpath.`
+- now use property to enable those annotations `management.observations.annotations.enabled=true`
+- 
 ---
 
 # update 06/18/24 log
