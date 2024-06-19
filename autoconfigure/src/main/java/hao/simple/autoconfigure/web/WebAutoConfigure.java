@@ -41,6 +41,7 @@ public class WebAutoConfigure {
         @Override
         protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
             String traceId = request.getHeader(TracingUtils.CONST_TRACE_ID);
+            // TODO will use TracingUtils.getOrGenerateTraceId optimize probably
             if (traceId == null) {
                 traceId = genTraceId(request);
             }

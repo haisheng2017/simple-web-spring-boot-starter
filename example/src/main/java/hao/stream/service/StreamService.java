@@ -26,8 +26,8 @@ public class StreamService {
         for (int i = from; i <= to; i++) {
             Stream stream = new Stream();
             stream.setStreamUrl(prefix + i);
-            CreateStreamResponse resp = client.getService().add(new CreateStreamRequest(stream.getStreamUrl()));
-            log.debug("Return stream id is {}", resp.getId());
+            CreateStreamResponse resp = client.add(new CreateStreamRequest(stream.getStreamUrl()));
+            log.debug("Return stream id is: {}", resp.getId());
             stream.setStreamId(resp.getId());
             mapper.insert(stream);
         }

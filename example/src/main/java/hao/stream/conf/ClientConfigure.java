@@ -1,7 +1,7 @@
 package hao.stream.conf;
 
+import hao.stream.client.RestClientFactory;
 import hao.stream.client.StreamClient;
-import io.micrometer.core.aop.TimedAspect;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +17,6 @@ public class ClientConfigure {
 
     @Bean
     public StreamClient streamClient() {
-        return new StreamClient(url);
+        return RestClientFactory.create(StreamClient.class, url);
     }
 }

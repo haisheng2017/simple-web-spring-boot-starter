@@ -18,7 +18,7 @@
     <properties>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- it seems like the version jdbc-start defined is not compatible with mybatis-plus -->
+        <!-- it seems like the original version starter-jdbc defined is not compatible with mybatis-plus -->
         <sqlite.jdbc.version>3.42.0.1</sqlite.jdbc.version>
         <start-class>hao.Application</start-class>
     </properties>
@@ -49,6 +49,13 @@
             <version>${sqlite.jdbc.version}</version>
             <scope>runtime</scope>
         </dependency>
+        <!-- used for rest client -->
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+            <version>5.3.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
