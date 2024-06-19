@@ -1,4 +1,4 @@
-package hao.example.model;
+package example.hao.example.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

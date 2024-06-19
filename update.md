@@ -1,7 +1,12 @@
 # update 06/19/24 log
 ## spring rest client with http interface 
 - it's recommended to use rest client by apache http5 client
+## move example package to non-hao start named
+- if an application is defined in hao.xxx liked package, component scan will auto include starter's component. This will make auto-configure not working
+## support validate
+
 ---
+
 # update 06/18/24 log
 ## upgrade spring boot 3.2
 ## mybatis-plus bugs

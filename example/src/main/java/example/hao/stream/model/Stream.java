@@ -1,4 +1,4 @@
-package hao.stream.model;
+package example.hao.stream.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

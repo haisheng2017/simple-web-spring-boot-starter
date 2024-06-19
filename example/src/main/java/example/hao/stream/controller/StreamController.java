@@ -1,10 +1,13 @@
-package hao.stream.controller;
+package example.hao.stream.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import hao.stream.mapper.StreamMapper;
-import hao.stream.model.Stream;
-import hao.stream.service.StreamService;
+import example.hao.stream.mapper.StreamMapper;
+import example.hao.stream.model.Stream;
+import example.hao.stream.service.StreamService;
 import io.micrometer.core.annotation.Timed;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +21,7 @@ public class StreamController {
     @Autowired
     private StreamService service;
 
-    @Timed("streams.list")
+    @Timed(value = "streams.list")
     @GetMapping
     public List<Stream> list() {
         return streamMapper.selectList(null);
@@ -26,8 +29,11 @@ public class StreamController {
 
     @Timed("streams.sync")
     @PostMapping("/sync")
-    public void sync(@RequestParam Integer total) {
-        service.sync(1, total);
+    public void sync(
+            @RequestParam(required = false, defaultValue = "1") @Range(min = 1, max = 100, message = "from should in [1,100]") Integer from,
+            @RequestParam @Range(min = 1, max = 100, message = "to should in [1,100]") Integer to
+    ) {
+        service.sync(from, to);
     }
 
     @Timed("streams.deleteAll")

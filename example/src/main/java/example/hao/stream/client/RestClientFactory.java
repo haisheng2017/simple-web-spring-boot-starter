@@ -1,4 +1,4 @@
-package hao.stream.client;
+package example.hao.stream.client;
 
 import hao.simple.exception.CodeEnum;
 import hao.simple.exception.SimpleException;

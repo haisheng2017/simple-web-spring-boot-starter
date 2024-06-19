@@ -1,4 +1,4 @@
-package hao.stream.client;
+package example.hao.stream.client;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

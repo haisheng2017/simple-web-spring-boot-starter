@@ -1,7 +1,7 @@
-package hao;
+package example;
 
-import hao.example.mapper.UserMapper;
-import hao.example.model.User;
+import example.hao.example.mapper.UserMapper;
+import example.hao.example.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

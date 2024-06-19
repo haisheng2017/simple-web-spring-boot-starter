@@ -1,4 +1,4 @@
-package hao.stream.client;
+package example.hao.stream.client;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

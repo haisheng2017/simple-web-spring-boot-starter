@@ -1,7 +1,7 @@
-package hao.example.controller;
+package example.hao.example.controller;
 
-import hao.example.mapper.UserMapper;
-import hao.example.model.User;
+import example.hao.example.mapper.UserMapper;
+import example.hao.example.model.User;
 import hao.simple.exception.SimpleThrower;
 import io.micrometer.core.annotation.Timed;
 import org.springframework.beans.factory.annotation.Autowired;

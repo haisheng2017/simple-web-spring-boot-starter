@@ -1,7 +1,7 @@
-package hao.stream.conf;
+package example.hao.stream.conf;
 
-import hao.stream.client.RestClientFactory;
-import hao.stream.client.StreamClient;
+import example.hao.stream.client.RestClientFactory;
+import example.hao.stream.client.StreamClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

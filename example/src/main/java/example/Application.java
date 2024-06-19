@@ -1,7 +1,7 @@
-package hao;
+package example;
 
-import hao.example.mapper.UserMapper;
-import hao.stream.mapper.StreamMapper;
+import example.hao.example.mapper.UserMapper;
+import example.hao.stream.mapper.StreamMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

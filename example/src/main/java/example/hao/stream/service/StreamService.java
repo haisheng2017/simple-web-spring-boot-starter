@@ -1,10 +1,10 @@
-package hao.stream.service;
+package example.hao.stream.service;
 
-import hao.stream.client.CreateStreamRequest;
-import hao.stream.client.CreateStreamResponse;
-import hao.stream.client.StreamClient;
-import hao.stream.mapper.StreamMapper;
-import hao.stream.model.Stream;
+import example.hao.stream.client.CreateStreamRequest;
+import example.hao.stream.client.CreateStreamResponse;
+import example.hao.stream.client.StreamClient;
+import example.hao.stream.mapper.StreamMapper;
+import example.hao.stream.model.Stream;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

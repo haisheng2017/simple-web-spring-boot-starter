@@ -1,4 +1,4 @@
-package hao.stream.client;
+package example.hao.stream.client;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
