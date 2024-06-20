@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <logger name="hao" level="DEBUG"/>
+    <logger name="example" level="DEBUG"/>
     <include resource="logback-template.xml"/>
 </configuration>
