@@ -4,6 +4,7 @@ import hao.simple.exception.SimpleThrower;
 import hao.simple.logging.TracingUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.annotation.HttpExchange;
@@ -34,6 +35,7 @@ public class RestClientFactory {
                         (request, response) -> {
                             Log.log.warn("request is not return 2xx: {}, response status: {}", request, response.getStatusText());
                         })
+                .defaultStatusHandler(new DefaultResponseErrorHandler())
                 .requestInterceptor((request, body, execution) -> {
                     if (!request.getHeaders().containsKey(TracingUtils.CONST_TRACE_ID)) {
                         request.getHeaders().add(TracingUtils.CONST_TRACE_ID, TracingUtils.getOrGenerateTraceId());

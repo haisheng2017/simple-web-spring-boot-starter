@@ -7,5 +7,6 @@ public enum CodeEnum {
     UNKNOWN,
     WEB_BAD_REQUEST,
     WEB_INTERNAL_ERROR,
+    WEB_INTERNAL_CALL_ERROR,
 
 }
