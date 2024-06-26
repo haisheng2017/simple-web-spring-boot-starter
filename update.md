@@ -1,3 +1,6 @@
+# update 06/16/24 log
+## add logback access in auto configure
+---
 # update 06/10/24 log
 ## upgrade mybatis-plus dependence for spring boot3
 ## support reset client exception
