@@ -9,6 +9,7 @@ import io.micrometer.common.util.StringUtils;
 import io.micrometer.core.annotation.Timed;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.ibatis.annotations.Delete;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +26,6 @@ public class StreamSkillController {
     @Autowired
     private StreamService service;
 
-    @GetMapping
-    public List<Stream> list() {
-        return streamMapper.selectList(null);
-    }
-
-
     @Timed("streams.skill")
     @PostMapping
     public void add(@RequestParam(required = false) Integer id) {
@@ -45,7 +40,17 @@ public class StreamSkillController {
             streamIds.addAll(streamMapper.selectList(new QueryWrapper<>()).stream().map(Stream::getStreamId).toList());
         }
         for (String sid : streamIds) {
-            service.addSkill(sid);
+            try {
+                service.addSkill(sid);
+            } catch (Exception ignored) {
+
+            }
         }
+    }
+
+    @Timed("streams.skill.delete")
+    @DeleteMapping
+    public void delete(@RequestParam String skillId) {
+        service.deleteSkill(skillId);
     }
 }

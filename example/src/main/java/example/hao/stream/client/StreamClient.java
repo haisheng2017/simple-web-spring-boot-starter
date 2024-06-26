@@ -18,4 +18,7 @@ public interface StreamClient {
     @PostExchange(url = "/{id}/skill")
     void addSkill(@PathVariable String id, @RequestBody Object request);
 
+    @DeleteExchange(url = "/{id}/skill/{skillId}")
+    void deleteSkill(@PathVariable String id, @PathVariable String skillId);
+
 }

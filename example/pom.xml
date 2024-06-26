@@ -18,7 +18,7 @@
     <properties>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- it seems like the original version starter-jdbc defined is not compatible with mybatis-plus -->
+        <!-- it seems like the original version starter-jdbc defined is not support "getting generated key" -->
         <sqlite.jdbc.version>3.42.0.1</sqlite.jdbc.version>
         <start-class>example.Application</start-class>
     </properties>

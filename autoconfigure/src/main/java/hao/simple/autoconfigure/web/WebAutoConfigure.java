@@ -1,5 +1,7 @@
 package hao.simple.autoconfigure.web;
 
+import ch.qos.logback.access.servlet.TeeFilter;
+import ch.qos.logback.access.tomcat.LogbackValve;
 import hao.simple.logging.TracingUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -9,16 +11,19 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.web.embedded.tomcat.ConfigurableTomcatWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.Ordered;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by hào on 2023/7/3
@@ -41,6 +46,28 @@ public class WebAutoConfigure {
         return registration;
     }
 
+
+    @Configuration(proxyBeanMethods = false)
+    @ConditionalOnExpression("#{${simple.logging.console.access.enabled:true} ||" +
+            "!'${simple.logging.access-log-file-path:}'.isEmpty() ||" +
+            "!'${simple.logging.access-debug-log-file-path:}'.isEmpty()" +
+            "}")
+    public static class AccessLog {
+        @Bean
+        public FilterRegistrationBean<TeeFilter> teeFilter() {
+            FilterRegistrationBean<TeeFilter> registration = new FilterRegistrationBean<>();
+            registration.setFilter(new TeeFilter());
+            registration.addUrlPatterns("/*");
+            registration.setName("teeFilter");
+            registration.setOrder(Ordered.HIGHEST_PRECEDENCE + 1);
+            return registration;
+        }
+
+        @Bean
+        public WebServerFactoryCustomizer<ConfigurableTomcatWebServerFactory> tomcatCustomizer() {
+            return factory -> factory.addEngineValves(new LogbackValve());
+        }
+    }
 
     @Slf4j
     @AllArgsConstructor

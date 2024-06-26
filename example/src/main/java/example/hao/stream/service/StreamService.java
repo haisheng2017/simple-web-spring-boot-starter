@@ -9,7 +9,6 @@ import example.hao.stream.mapper.StreamMapper;
 import example.hao.stream.model.Stream;
 import hao.simple.exception.SimpleThrower;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -62,12 +61,22 @@ public class StreamService {
 
     public void addSkill(String streamId) {
         try {
-//            String json = FileUtils.readFileToString(new File(requestPath), StandardCharsets.UTF_8);
             Object request = jc.readValue(new File(requestPath), Object.class);
             client.addSkill(streamId, request);
         } catch (IOException e) {
             log.warn("add skill exception.", e);
             throw SimpleThrower.internalError(e.getMessage());
+        }
+    }
+
+    public void deleteSkill(String skillId) {
+        List<Stream> streams = mapper.selectList(new QueryWrapper<>());
+        for (Stream s : streams) {
+            try {
+                client.deleteSkill(s.getStreamId(), skillId);
+            } catch (Exception e) {
+                log.warn("delete skill exception.", e);
+            }
         }
     }
 

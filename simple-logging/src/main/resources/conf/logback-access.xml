@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+
+    <if condition='isDefined("spring.config.additional-location")'>
+        <then>
+            <property file="${spring.config.additional-location}"/>
+        </then>
+        <else>
+            <if condition='isDefined("spring.config.location")'>
+                <then>
+                    <property file="${spring.config.location}"/>
+                </then>
+                <else>
+                    <property resource="application.properties"/>
+                </else>
+            </if>
+        </else>
+    </if>
+
+    <property name="simple.logging.console.access.enabled" value="${simple.logging.console.access.enabled:-true}"/>
+    <property name="simple.logging.max-log-file-size" value="${simple.logging.max-log-file-size:-50MB}"/>
+    <property name="simple.logging.access-debug-uri-prefix" value="${simple.logging.access-debug-uri-prefix:-/}"/>
+
+    <if condition='"true".equals(property("simple.logging.console.access.enabled"))'>
+        <then>
+            <appender name="CONSOLE_DEBUG" class="ch.qos.logback.core.ConsoleAppender">
+                <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+                    <evaluator name="ApiOnly">
+                        <expression>
+                            event.getRequestURI().startsWith("${simple.logging.access-debug-uri-prefix}")
+                        </expression>
+                    </evaluator>
+                    <onMismatch>DENY</onMismatch>
+                </filter>
+                <encoder>
+                    <charset>UTF-8</charset>
+                    <pattern>%i{ClientIp} %h %l %u [%t] "%r" %s %b "%i{Referer}" "%i{User-Agent}" %i{x-ssl-header}
+                        %n======&gt;%n%fullRequest%n&lt;======%n%fullResponse
+                    </pattern>
+                </encoder>
+            </appender>
+        </then>
+    </if>
+
+    <if condition='isDefined("simple.logging.access-log-file-path")'>
+        <then>
+            <appender name="ACCESS_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <encoder>
+                    <charset>UTF-8</charset>
+                    <pattern>%i{ClientIp} %h %l %u [%t] "%r" %s %b "%i{Referer}" "%i{User-Agent}"
+                    </pattern>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <fileNamePattern>${simple.logging.access-log-file-path}.%d{yyyyMMddHH}</fileNamePattern>
+                    <if condition='isDefined("simple.logging.access-log-max-history-in-hours")'>
+                        <then>
+                            <maxHistory>${simple.logging.access-log-max-history-in-hours}</maxHistory>
+                        </then>
+                    </if>
+                </rollingPolicy>
+            </appender>
+        </then>
+    </if>
+    <if condition='isDefined("simple.logging.access-debug-log-file-path")'>
+        <then>
+            <appender name="ACCESS_DEBUG_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+                    <evaluator name="ApiOnly">
+                        <expression>
+                            event.getRequestURI().startsWith("${simple.logging.access-debug-uri-prefix}")
+                        </expression>
+                    </evaluator>
+                    <onMismatch>DENY</onMismatch>
+                </filter>
+                <encoder>
+                    <charset>UTF-8</charset>
+                    <pattern>%i{ClientIp} %h %l %u [%t] "%r" %s %b "%i{Referer}" "%i{User-Agent}"
+                        %n======&gt;%n%fullRequest%n&lt;======%n%fullResponse
+                    </pattern>
+                </encoder>
+                <file>${simple.logging.access-debug-log-file-path}</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <fileNamePattern>
+                        ${simple.logging.access-debug-log-file-path}-%d{yyyy-MM-dd}/%d{yyyy-MM-dd}.%i.access.debug.log
+                    </fileNamePattern>
+                    <if condition='isDefined("simple.logging.access-debug-log-max-history-in-days")'>
+                        <then>
+                            <maxHistory>${simple.logging.access-debug-log-max-history-in-days}</maxHistory>
+                        </then>
+                    </if>
+                    <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                        <maxFileSize>${simple.logging.max-log-file-size}</maxFileSize>
+                    </timeBasedFileNamingAndTriggeringPolicy>
+                </rollingPolicy>
+            </appender>
+        </then>
+    </if>
+
+
+    <!-- add appender -->
+    <if condition='"true".equals(property("simple.logging.console.access.enabled"))'>
+        <then>
+            <appender-ref ref="CONSOLE_DEBUG"/>
+        </then>
+    </if>
+    <if condition='isDefined("simple.logging.access-log-file-path")'>
+        <then>
+            <appender-ref ref="ACCESS_LOG_FILE"/>
+        </then>
+    </if>
+    <if condition='isDefined("simple.logging.access-debug-log-file-path")'>
+        <then>
+            <appender-ref ref="ACCESS_DEBUG_LOG_FILE"/>
+        </then>
+    </if>
+</configuration>

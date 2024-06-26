@@ -3,12 +3,16 @@ package example.hao.stream.client;
 import hao.simple.exception.SimpleThrower;
 import hao.simple.logging.TracingUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.annotation.HttpExchange;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
+
+import java.io.IOException;
 
 
 /**
@@ -31,10 +35,6 @@ public class RestClientFactory {
         }
         // TODO check it out a rect client singleton based on url possibility
         RestClient restClient = RestClient.builder()
-                .defaultStatusHandler(httpStatusCode -> !httpStatusCode.is2xxSuccessful(),
-                        (request, response) -> {
-                            Log.log.warn("request is not return 2xx: {}, response status: {}", request, response.getStatusText());
-                        })
                 .defaultStatusHandler(new DefaultResponseErrorHandler())
                 .requestInterceptor((request, body, execution) -> {
                     if (!request.getHeaders().containsKey(TracingUtils.CONST_TRACE_ID)) {
