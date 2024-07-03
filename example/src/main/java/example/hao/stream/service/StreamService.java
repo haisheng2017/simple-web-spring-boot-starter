@@ -1,6 +1,7 @@
 package example.hao.stream.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import example.hao.stream.client.CreateStreamRequest;
 import example.hao.stream.client.CreateStreamResponse;
@@ -12,16 +13,22 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientResponseException;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 @Slf4j
 @Service
 public class StreamService {
 
     private final ObjectMapper jc = new ObjectMapper();
+    private final Random random = new Random();
     @Value("${stream.live-url.prefix:}")
     private String prefix;
     @Value("${stream.skill-request-json:}")
@@ -59,11 +66,20 @@ public class StreamService {
         }
     }
 
-    public void addSkill(String streamId) {
+    public void addSkill(String streamId, int times) {
         try {
-            Object request = jc.readValue(new File(requestPath), Object.class);
-            client.addSkill(streamId, request);
-        } catch (IOException e) {
+            Map<String, Object> request = jc.readValue(new File(requestPath), new TypeReference<>() {
+            });
+            String rd = String.valueOf(random.nextInt(100) >= 75 ? 0 : 100);
+            String data = (String) request.get("data");
+            request.put("data", data.replaceAll("REGPAT", UUID.randomUUID().toString())
+                    .replaceAll("REG_COND_PAT", rd));
+            log.warn("Generate RD: {}", rd);
+            for (int i = 1; i <= times; i++) {
+                request.put("version", String.valueOf(i));
+                client.addSkill(streamId, request);
+            }
+        } catch (IOException | RestClientResponseException e) {
             log.warn("add skill exception.", e);
             throw SimpleThrower.internalError(e.getMessage());
         }

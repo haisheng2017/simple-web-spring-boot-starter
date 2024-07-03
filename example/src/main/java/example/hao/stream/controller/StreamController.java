@@ -26,16 +26,16 @@ public class StreamController {
     @Timed("streams.sync")
     @PostMapping("/sync")
     public void sync(
-            @RequestParam(required = false, defaultValue = "1") @Range(min = 1, max = 100, message = "from should in [1,100]") Integer from,
-            @RequestParam @Range(min = 1, max = 100, message = "to should in [1,100]") Integer to
+            @RequestParam(required = false, defaultValue = "1") @Range(min = 1, max = 999, message = "from should in [1,999]") Integer from,
+            @RequestParam @Range(min = 1, max = 999, message = "to should in [1,999]") Integer to
     ) {
         service.sync(from, to);
     }
 
     @DeleteMapping
     public void deleteAll(
-            @RequestParam(required = false, defaultValue = "1") @Range(min = 1, max = 100, message = "from should in [1,100]") Integer from,
-            @RequestParam(required = false, defaultValue = "100") @Range(min = 1, max = 100, message = "to should in [1,100]") Integer to
+            @RequestParam(required = false, defaultValue = "1") @Range(min = 1, max = 999, message = "from should in [1,999]") Integer from,
+            @RequestParam(required = false, defaultValue = "100") @Range(min = 1, max = 999, message = "to should in [1,999]") Integer to
     ) {
         service.delete(from,to);
     }

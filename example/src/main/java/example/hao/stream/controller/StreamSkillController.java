@@ -7,6 +7,7 @@ import example.hao.stream.service.StreamService;
 import hao.simple.exception.SimpleThrower;
 import io.micrometer.common.util.StringUtils;
 import io.micrometer.core.annotation.Timed;
+import jakarta.validation.constraints.Min;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.annotations.Delete;
@@ -28,7 +29,9 @@ public class StreamSkillController {
 
     @Timed("streams.skill")
     @PostMapping
-    public void add(@RequestParam(required = false) Integer id) {
+    public void add(@RequestParam(required = false) Integer id,
+                    @RequestParam(required = false, defaultValue = "1")
+                    @Min(value = 1) Integer times) {
         List<String> streamIds = new ArrayList<>();
         if (id != null) {
             Stream s = streamMapper.selectById(id);
@@ -41,7 +44,7 @@ public class StreamSkillController {
         }
         for (String sid : streamIds) {
             try {
-                service.addSkill(sid);
+                service.addSkill(sid, times);
             } catch (Exception ignored) {
 
             }
